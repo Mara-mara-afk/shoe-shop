@@ -2,6 +2,7 @@ import sys
 import os
 import uuid
 import datetime
+import configparser
 
 from PyQt6 import QtWidgets, uic, QtCore
 from PyQt6.QtGui import QIcon, QPixmap, QFont
@@ -10,13 +11,11 @@ import psycopg  # psycopg3, pip install psycopg[binary]
 
 # ---------- НАСТРОЙКИ БАЗЫ ДАННЫХ ----------
 def get_connection():
-    return psycopg.connect(
-        dbname="ooobuv",
-        user="postgres",
-        password="123456",
-        host="localhost",
-        port=5432,
-    )
+    config = configparser.ConfigParser()
+    config.read("config.ini", encoding="utf-8")
+    db = config["database"]
+    psycopg.connect(host=db["host"], port=db["port"], dbname=db["name"], user=db["user"], password=db["password"])
+
 
 
 # ---------- РАБОТА С ПОЛЬЗОВАТЕЛЯМИ ----------
@@ -136,7 +135,7 @@ class ProductsWindow(QtWidgets.QWidget):
         uic.loadUi("ui/spisokTovarov.ui", self)
         self.setFixedSize(self.size())
         self.setWindowIcon(QIcon("pics/icon.ico"))
-        self.setWindowTitle("Список товаров")
+        self.setWindowTitle("Список доступных товаров")
 
         self.current_user = current_user
 
@@ -1121,7 +1120,7 @@ class AddTovarWindow(QtWidgets.QWidget):
             QtWidgets.QMessageBox.warning(
                 self,
                 "Некорректные данные",
-                "Поле «Артикул» обязательно для заполнения.",
+                "Поле «Артикул», обязательное для заполнения, пустое.",
             )
             return
 
