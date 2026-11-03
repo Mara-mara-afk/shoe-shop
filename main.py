@@ -1120,7 +1120,7 @@ class AddTovarWindow(QtWidgets.QWidget):
             QtWidgets.QMessageBox.warning(
                 self,
                 "Некорректные данные",
-                "Поле «Артикул», обязательное для заполнения, пустое.",
+                "Поле «Артикул», обязательно для заполнения.",
             )
             return
 
