@@ -443,6 +443,11 @@ class ProductsWindow(QtWidgets.QWidget):
         info_layout.addWidget(price_row)
 
         info_layout.addWidget(make_row("Единица измерения:", uom or "-"))
+
+        MANY_THRESHOLD = 5
+
+        stock_text = "Много" if amount > MANY_THRESHOLD else "Мало"
+
         info_layout.addWidget(
             make_row("Количество на складе:", str(amount), highlight=(amount <= 0))
         )
