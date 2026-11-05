@@ -106,7 +106,7 @@ class AuthorizeWindow(QtWidgets.QMainWindow):
             QtWidgets.QMessageBox.critical(
                 self,
                 "Ошибка БД",
-                f"Не удалось выполнить запрос к базе данных:\n Проверьте имя БД, порт и config.ini\n{e}",
+                f"Не удалось выполнить запрос к базе данных:\n Проверьте имя БД, порт и config.ini",
             )
             return
 
